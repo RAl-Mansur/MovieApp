@@ -45,10 +45,7 @@ class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         
         tbData!.reloadData()
         //print(movieArray[9].name)
-        let sortedMovies = movieArray.sort{ $0.name < $1.name }
-        for sortedMovie in sortedMovies {
-            print(sortedMovie.name)
-        }
+        
     }
     
     //XMLParser Methods
@@ -97,7 +94,14 @@ class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             cell = NSBundle.mainBundle().loadNibNamed("Cell", owner: self, options: nil)[0] as! UITableViewCell;
         }
         
-        cell.textLabel?.text = posts.objectAtIndex(indexPath.row).valueForKey("title") as! NSString as String
+        let sortedMovies = movieArray.sort{ $0.name < $1.name }
+        for sortedMovie in sortedMovies {
+            print(sortedMovie.name)
+        }
+        
+        //cell.textLabel?.text = posts.objectAtIndex(indexPath.row).valueForKey("title") as! NSString as String
+        
+        cell.textLabel?.text = sortedMovies[indexPath.row].name
         
         //cell.textLabel?.text = sortedMovies as! NSString as String
         
