@@ -9,8 +9,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, NSXMLParserDelegate {
+class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var tableView: UIView!
+    @IBOutlet weak var tbData: UITableView!
+    
     var parser = NSXMLParser()
     var posts = NSMutableArray()
     var elements = NSMutableDictionary()
@@ -21,8 +24,7 @@ class ViewController: UIViewController, NSXMLParserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        beginParsing()
-        print(posts)
+        self.beginParsing()
     }
 
     func beginParsing()
@@ -32,7 +34,7 @@ class ViewController: UIViewController, NSXMLParserDelegate {
         parser.delegate = self
         parser.parse()
         
-        //tbData!.reloadData()
+        tbData!.reloadData()
     }
     
     //XMLParser Methods
@@ -65,6 +67,23 @@ class ViewController: UIViewController, NSXMLParserDelegate {
         if element.isEqualToString("title") {
             movieTitle.appendString(string)
         }
+    }
+    
+    //Tableview Methods
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell")!
+        
+        if(cell.isEqual(NSNull)) {
+            cell = NSBundle.mainBundle().loadNibNamed("Cell", owner: self, options: nil)[0] as! UITableViewCell;
+        }
+        
+        cell.textLabel?.text = posts.objectAtIndex(indexPath.row).valueForKey("title") as! NSString as String
+        
+        return cell as UITableViewCell
     }
     
     override func didReceiveMemoryWarning() {
