@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--New Releases-->
+        <!--New Movie Releases-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -54,7 +54,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Sqm-X6-eQv" secondAttribute="bottom" id="iKx-9Y-w0S"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="New Releases" id="RCX-KX-IUP"/>
+                    <navigationItem key="navigationItem" title="New Movie Releases" id="RCX-KX-IUP"/>
                     <connections>
                         <outlet property="tableView" destination="8bC-Xf-vdC" id="BgZ-c6-pgj"/>
                         <outlet property="tbData" destination="Sqm-X6-eQv" id="Uiz-ce-fgN"/>

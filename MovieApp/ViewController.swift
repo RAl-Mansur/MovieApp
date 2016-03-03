@@ -9,8 +9,17 @@
 
 import UIKit
 
+class Movie {
+    var name: String
+    init(name: String) {
+        self.name = name
+    }
+}
+
 class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    
+    
     @IBOutlet var tableView: UIView!
     @IBOutlet weak var tbData: UITableView!
     
@@ -19,7 +28,7 @@ class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     var elements = NSMutableDictionary()
     var element = NSString()
     var movieTitle = NSMutableString()
-    var movieArray = NSMutableArray();
+    var movieArray = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +44,11 @@ class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         parser.parse()
         
         tbData!.reloadData()
+        //print(movieArray[9].name)
+        let sortedMovies = movieArray.sort{ $0.name < $1.name }
+        for sortedMovie in sortedMovies {
+            print(sortedMovie.name)
+        }
     }
     
     //XMLParser Methods
@@ -57,6 +71,8 @@ class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             if !movieTitle.isEqual(nil) {
                 elements.setObject(movieTitle, forKey: "title")
             }
+            //print("heres a movie: \(movieTitle)")
+            movieArray.append(Movie(name: "\(movieTitle)"))
             
             posts.addObject(elements)
         }
@@ -82,6 +98,8 @@ class ViewController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         }
         
         cell.textLabel?.text = posts.objectAtIndex(indexPath.row).valueForKey("title") as! NSString as String
+        
+        //cell.textLabel?.text = sortedMovies as! NSString as String
         
         return cell as UITableViewCell
     }
